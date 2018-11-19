@@ -1,5 +1,5 @@
 # statusTags
-一个 tag 标签插件，根据用户提供的模板，和数据生成tags，提供了 增、删、排序、数据重载等功能。
+一个 tag 标签组件，根据用户提供的模板，和数据生成tags，提供了 增、删、排序、数据重载等功能。
 ## 效果图
 
 ![image](https://images.gitee.com/uploads/images/2018/1119/210008_60bcfcfc_1994789.gif)
