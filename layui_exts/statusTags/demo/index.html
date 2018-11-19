@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../../layui/css/layui.css" media="all">
+  <style>
+    body{
+      background-color: #f2f2f2;
+    }
+    .main{
+      width: 680px;
+      margin: 20px auto; 
+     
+
+    }
+    .item{
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #f5f5f5;
+    }
+    .layui-badge:nth-child(n+1){
+      margin-left: 5px;
+    }
+    .layui-badge-dot{
+      margin-left: 5px;
+    }
+    #tags{
+      width: 100%;
+      padding-left: 20px;
+      font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,Droid Sans, Helvetica Neue, sans-serif;
+      font-size:18px;
+      font-weight: 400px;
+    }
+    .item li{
+      list-style-type: disc;
+      margin-bottom: 10px;
+    }
+    .item .text{
+      color: #22292f;
+      margin-right: 10px;
+    }
+    .item .remove{
+      color:#8795a1;
+      text-decoration: underline;
+      background:transparent;
+      border: none;
+    }
+
+    .tags-wrap{
+      border:1px solid  #e6e6e6;
+      width: 100%;
+      font-size: 18px;
+    }
+   .tags-wrap:after{
+      content:"";
+      display:block;
+      visibility:hidden;
+      height:0;
+      line-height:0;
+      clear:both;
+    } 
+    .tags-input{
+      width: 200px;
+      height: 38px;
+    }
+    .tags-input input {
+      border:none;
+
+    }
+    .tags,.tags-input{
+     
+      float: left;
+    }
+    .tags{
+      margin-left:10px;
+    }
+    .tags .layui-badge{
+      padding: 5px;
+      margin: 5px 0;
+      margin-right: 5px;
+      font-size: 18px;
+    }
+    .tagsremove{
+      color: #2F4056;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="item">
+      <div class="layui-form-item">
+        <div class="layui-input-inline">
+          <input type="text" name="text" placeholder="New tag" autocomplete="off" class="layui-input" id="input">
+        </div>
+        <button class="layui-btn add">添加</button>
+        <button class="layui-btn getdata">获取数据</button>
+        <button class="layui-btn sort">排序</button>
+        <button class="layui-btn empty">清空</button>
+        <button class="layui-btn reload">数据重载</button>
+      </div>
+      <ul id="tags">
+
+      </ul>
+    </div>
+    <div class="item">
+      <div class="tags-wrap">
+        <div class="tags" id="tags1">
+
+        </div>
+        <div class="tags-input">
+          <input type="text" class="layui-input input-add" placeholder="New tag">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../../layui/layui.js"></script>
+  <script>
+    // document.
+    layui.config({
+      base: '../../../layui_exts/'
+    }).extend({
+      statusTags: 'statusTags/statusTags',
+    }).use(['statusTags', 'form'], function () {
+      var $ = layui.$,
+        form = layui.form,
+        statusTags = layui.statusTags;
+
+      var tag = statusTags.render({
+        el: "#tags",
+        template: '<li class="mb-2">' +
+          '<span class="text">@title</span>' +
+          '<button class="remove @remove">Remove</button>' +
+          '</li>',
+        data: [
+          'Layui',
+          'LayuiAdmin',
+          'React'
+        ],
+        title: 0,
+        sort: 'asc' //排序方式 asc: 升序、desc: 降序 / toggle
+      });
+
+      $('.add').on('click', function () {
+        tag.add($('#input').val());
+        $('#input').val('');
+      })
+
+      $('.empty').on('click', function () {
+        tag.empty();
+      })
+      $('.getdata').on('click', function () {
+        console.log(tag.getData());
+      })
+      $('.reload').on('click', function () {
+        tag.reload({
+          data: [
+            'Layui',
+            'Vue'
+          ],
+        });
+      })
+      $('.sort').on('click', function () {
+
+        tag.sort('toggle');
+      })
+
+      var tag1 = statusTags.render({
+        el: "#tags1",
+        template: '<span class="layui-badge layui-bg-green">@title <span class="tagsremove @remove">x</span></span>',
+        data: [
+          'Layui',
+          'LayuiAdmin',
+          'React'
+        ],
+        title: 0,
+
+      });
+
+      $('.input-add').on('keydown', function (e) {
+
+        if (e.keyCode === 13) {
+          var value = $(this).val();
+          $(this).val('');
+          tag1.add(value);
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
