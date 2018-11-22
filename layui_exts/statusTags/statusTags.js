@@ -38,18 +38,21 @@ layui.define('jquery', function (exports) {
         // 添加
         add: function (options) {
             that.add.call(that, options);
+            return this;
           }
 
           // 删除
           ,
         remove: function (options) {
             that.remove.call(that, options);
+            return this;
           }
 
           // 清空
           ,
         empty: function () {
             that.empty.call(that);
+            return this;
           }
 
           // 获取数据
@@ -62,12 +65,14 @@ layui.define('jquery', function (exports) {
           ,
         reload: function (options) {
             that.reload.call(that, options);
+            return this;
           }
 
           // 排序
           ,
         sort: function (value) {
           that.sort.call(that, value);
+          return this;
         }
       }
     }
